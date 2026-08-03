@@ -1,0 +1,159 @@
+- what is for else in python where and how to user 
+- What is tuple and why we use tuple
+- what is shallow and deep copy
+- what is inheritance in oops
+- Write the python code to check given url is working or not [ given a array of urls return true if it is working else false]
+- What is oops in python 
+- what is time complexity of push function of stack
+- create stack class adn the function of push, pop, display
+- what is Linked List
+- What do you score your self in ds 
+- what is React Hooks
+- what is angular lifecycle 
+- write join query
+- what is abstract and interface in python 
+- what is mro in inheritance
+- what is shallow and deep copy
+- what is difference between flask and fast api
+- code to sort the list without using set
+- what are prompting types
+- Have you used zero short prompting and where
+- what are decorators
+- what are generators
+- what is list , tuple, how do they differ
+- what is fastapi
+- coding problem : input - [1,2,[3,4],[5,6]] and output should be [1,2,3,4,5,6]
+- what are prcess and threads
+- pandas join query, sql join query, what are sql relationships
+- Api Advanced : 
+- how do we do login Authentication in flask / fastapi
+- what is tokens in api flask / fastapi
+- what is index in pandas
+- difference between dataframe and series
+- what is serialization
+- what is the Technology to connect to database in python
+- use cases of decorators
+- Top 5 dunder function
+- what is property in python
+- what is data class and what is its use 
+- what is use of __init__ 
+- In context of memory, what is great list, set, dictionary, tuple
+- then look up in list and dict , what is memory effecient
+- difference of loc vs iloc
+- what is use of creating the logging.py and handler.py
+- What was your role in your projects
+- what models u used in ur Ml projects
+- what is semantic kernel
+- what are the vector databased u used
+- what is types of semantic search and similarity search
+- what is semantic search and similarity search
+- Pandas basic operations
+- create dataframe with given data
+- find people joining after 1 jan 2023
+- check and change datatype of given column in pandas
+- what is join and types of it
+- write a query to get top 2 spending customer
+- what is default in 'order by' clause (asc or desc)
+- Write query to get department of which have no emp (join example)
+- Dicussed strictly about the A2 agent
+- write python code to get list of output of characters without the vowels and input is the string 'hello to all of you'
+- what is jail breaking
+- what is gen ai vs agentic ai
+- what is vectorless rag
+- stateful vs stateless servers
+- waht is fine tunning, what will be the max_doc and format of the data to fine tune
+- which llm used till now
+- is tital is of aws modle ?
+- what to do if llm hallusinates
+- what are the guardrails (not in sence of prompting)
+- Have you user MCP, what is MCP
+- what is process to store the data in vectore database
+- What is types of chunking 
+- How to do chunking
+- guardrails techniques
+- How many planner agent and validation agent one system should have
+- What is rag
+- LangChain vs LangGraph
+- Types of Chain in LangChain
+- What is python List
+- How to implement HITL in LangGraph
+- What are the nodes , edges in LangGraph
+- Explain transformer architecture, how is it different from RNN and LSTM
+- Difference between cosine similarity and fucidean distance
+- Explain rag, what is recurrive character text splitter, 
+- what is hybrid search 
+- What are knowledge you have about cloud services
+- Python code to merge the overlap intervals (input : [[1,3],[2,6],[8,10],[15,18]] and output : [[1,6],[8,10],[15,18]])
+- What is excepttional handling
+- What else block is used for and why in excepttional handling
+- List , Dict, string functions related interview questions
+- what is overloading and overriding
+- what is inheritance and its types
+- 9/2 vs 9//2 difference
+- can list or tuple be the key of dictionary
+- How tuple is effecient to store data then list
+- what is zip function
+- what is dunder functions 
+- imp of self in class and why it is needed
+- what is decorators and its use
+- what is generators and its use
+- how to remove the specific key:pair from the dictionary
+- what is slicing
+- How to get the 0th and 3rd item using slicing
+- what is process and threads  
+- keys in sql 
+- index in pandas
+- what is serialization
+- what is use of __init__
+- in context of memory what is good list vs set vs dict vs tuple
+- python code for merge of array ( input - [1,2,[3,4], 5, 6] output - [1,2,3,4,5,6] )
+- how to load the csv or excel file in pandas
+- what is iterators, async io
+- what is multithreading vs multiprocessing
+- when we use async - io in multiprocessing or multithreading
+- what is the user and importance of GIL (global interpreter lock)
+- what is gen ai
+- what is llm 
+- what is temperature 
+- what is vector db and what u db you have worked with
+- what is cosine similarity
+- write a code to create embedding
+- draw or explain the architecture of pdf chatbot 
+- Do you know database design
+- What is self attention
+- Explain oops
+- Tell me what are solid principles, where do you used this principles
+- write the code for matrix transpose
+- Explain RAG architecture
+- what is ACID
+- what is async io
+- flask vs fastapi vs django
+- how to reduce the hallusination in rag
+- LLM vs ai
+- Types of prompting
+- python code to count the word occurence in given sentence ( input: "I Love Python" | output: {'I':1, 'Love':1, 'Python':1})
+- Do you know any automation tool 
+- LangChain vs LangGraph
+- how to integrate the google vertex ai with the ai application
+- what is abstraction 
+- what is oops 
+- what is session and cookies in React js
+- can we trasnfer one session data to another session
+- what are generators and decorators
+- where and how you used pandas
+- Do you know numpy
+- How do you define routes in fastapi 
+- what is sso and have u used it
+- what is oops and where have you used this concepts
+- tell me benefits of sqllite over postgres-sql
+- Have you used alembic or write a query directly in large application
+- do you know javascript
+- memory management in python 
+- what is system design 
+- what is design pattern
+- generators vs iterators 
+- how to get the unique character from given string ( input: "abkkkb" , output "a" )
+- what is FAISS
+- what is redis and use cases how do you used it
+- gen ai vs agentic ai vs llm
+- what are transformers
