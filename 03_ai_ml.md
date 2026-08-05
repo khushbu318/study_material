@@ -580,15 +580,139 @@ print(len(vector))  # e.g., 1536 for text-embedding-ada-002
 | Less control over flow | Full control over flow |
 
 ---
-
 ## 24. Types of Chains in LangChain
 
-- **LLMChain** — basic prompt + LLM
-- **SequentialChain** — multiple chains in sequence
-- **RetrievalQA** — RAG chain
-- **ConversationalRetrievalChain** — RAG with memory
-- **RouterChain** — routes to different chains based on input
+### 1. LLMChain (Prompt + LLM)
 
+A basic chain that takes a prompt template, sends it to an LLM, and returns the response.
+
+**Use Case:** Simple question answering, text generation, summarization.
+
+```python
+from langchain.prompts import PromptTemplate
+from langchain_openai import ChatOpenAI
+from langchain.chains import LLMChain
+
+llm = ChatOpenAI(model="gpt-4o-mini")
+
+prompt = PromptTemplate(
+    input_variables=["topic"],
+    template="Explain {topic} in simple terms."
+)
+
+chain = LLMChain(llm=llm, prompt=prompt)
+
+response = chain.invoke({"topic": "Machine Learning"})
+print(response)
+```
+
+---
+
+### 2. SequentialChain
+
+Runs multiple chains one after another, where the output of one chain becomes the input to the next.
+
+**Use Case:** Multi-step workflows such as Generate → Summarize → Translate.
+
+```python
+from langchain.chains import SequentialChain
+
+# Example:
+# Chain 1 -> Generate a blog
+# Chain 2 -> Summarize the generated blog
+
+result = sequential_chain.invoke({
+    "topic": "Artificial Intelligence"
+})
+```
+
+---
+
+### 3. RetrievalQA
+
+Retrieves relevant documents from a vector database and passes them to the LLM.
+
+**Use Case:** RAG (Retrieval-Augmented Generation).
+
+```python
+from langchain.chains import RetrievalQA
+from langchain_openai import ChatOpenAI
+
+llm = ChatOpenAI(model="gpt-4o-mini")
+
+qa_chain = RetrievalQA.from_chain_type(
+    llm=llm,
+    retriever=vectorstore.as_retriever()
+)
+
+response = qa_chain.invoke({
+    "query": "What is Retrieval-Augmented Generation?"
+})
+
+print(response)
+```
+
+---
+
+### 4. ConversationalRetrievalChain
+
+Similar to RetrievalQA but also remembers previous conversation history.
+
+**Use Case:** Chatbots with memory over retrieved documents.
+
+```python
+from langchain.chains import ConversationalRetrievalChain
+from langchain_openai import ChatOpenAI
+
+llm = ChatOpenAI(model="gpt-4o-mini")
+
+conversation_chain = ConversationalRetrievalChain.from_llm(
+    llm=llm,
+    retriever=vectorstore.as_retriever()
+)
+
+response = conversation_chain.invoke({
+    "question": "Summarize the document.",
+    "chat_history": []
+})
+
+print(response)
+```
+
+---
+
+### 5. RouterChain
+
+Routes the user's request to different chains based on the input.
+
+**Use Case:** Route technical questions to one chain and HR questions to another.
+
+```python
+# Pseudo Example
+
+if question == "coding":
+    coding_chain.invoke(question)
+
+elif question == "finance":
+    finance_chain.invoke(question)
+
+else:
+    general_chain.invoke(question)
+```
+
+**Example**
+
+User: "Write a Python function."
+
+➡️ Routed to **Coding Chain**
+
+User: "Explain inflation."
+
+➡️ Routed to **Finance Chain**
+
+User: "Write an email."
+
+➡️ Routed to **General Assistant Chain**
 ---
 
 ## 25. Nodes and Edges in LangGraph
