@@ -732,18 +732,113 @@ graph.add_edge("retrieve", "generate")
 
 ---
 
-## 26. How to Implement HITL in LangGraph
+## 26. How to Implement Human-in-the-Loop (HITL) in LangGraph
 
-Human-in-the-Loop (HITL) pauses the graph at a checkpoint and waits for human approval before continuing.
+Human-in-the-Loop (HITL) allows a LangGraph workflow to **pause execution** at a specific node and wait for **human approval or input** before continuing. This is useful for scenarios such as:
+
+- Approving sensitive actions (payments, emails, deployments)
+- Reviewing AI-generated content
+- Editing responses before sending them to users
+- Compliance and audit workflows
+
+### Step 1: Add a Checkpointer
+
+A checkpointer saves the graph's state so it can be resumed later.
 
 ```python
 from langgraph.checkpoint.memory import MemorySaver
 
 checkpointer = MemorySaver()
-graph = graph.compile(checkpointer=checkpointer, interrupt_before=["sensitive_node"])
 ```
 
-The graph pauses before `sensitive_node` and resumes only after human input.
+---
+
+### Step 2: Compile the Graph with an Interrupt
+
+```python
+graph = graph.compile(
+    checkpointer=checkpointer,
+    interrupt_before=["sensitive_node"]
+)
+```
+
+Here:
+
+- `interrupt_before` pauses the graph **before** executing `sensitive_node`.
+- The graph state is automatically saved by the checkpointer.
+
+---
+
+### Step 3: Start the Graph
+
+```python
+config = {
+    "configurable": {
+        "thread_id": "user-123"
+    }
+}
+
+graph.invoke(
+    {"input": "Transfer $5000"},
+    config=config
+)
+```
+
+The graph pauses before `sensitive_node`.
+
+---
+
+### Step 4: Human Reviews the Request
+
+The application can now display something like:
+
+```
+Transfer $5000 to Account XYZ?
+
+Approve / Reject
+```
+
+The graph remains paused until a human makes a decision.
+
+---
+
+### Step 5: Resume the Graph
+
+Once the human approves, resume execution using the **same `thread_id`**.
+
+```python
+from langgraph.types import Command
+
+graph.invoke(
+    Command(resume=True),
+    config=config
+)
+```
+
+Or pass the human's input while resuming:
+
+```python
+graph.invoke(
+    Command(resume="Approved"),
+    config=config
+)
+```
+
+The graph continues execution from the paused node instead of starting over.
+
+---
+
+### Why is `thread_id` Important?
+
+`thread_id` uniquely identifies the execution session.
+
+When you resume the graph using the same `thread_id`, LangGraph loads the saved state from the checkpointer and continues exactly where it paused.
+
+---
+
+### Interview Answer
+
+> Human-in-the-Loop (HITL) in LangGraph enables pausing a workflow at specific nodes for human review or approval. This is achieved by compiling the graph with a checkpointer and specifying interrupt points using `interrupt_before` or `interrupt_after`. The graph's state is saved, and later resumed using `Command(resume=...)` with the same `thread_id`, allowing execution to continue from the checkpoint instead of restarting.
 
 ---
 
