@@ -210,7 +210,7 @@ Transformers are a neural network architecture that processes sequences in paral
 
 ## 6. What is Self-Attention?
 
-Self-attention allows each token in a sequence to attend to all other tokens and assign relevance scores.
+Self-attention allows each token in a sequence to compute how important every other token is for understanding its meaning. Instead of relying only on nearby words, it builds contextual relationships across the entire sentence, helping the model resolve ambiguity and capture long-range dependencies.
 
 ### How It Works
 
