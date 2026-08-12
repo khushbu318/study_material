@@ -210,7 +210,7 @@ Transformers are a neural network architecture that processes sequences in paral
 
 ## 6. What is Self-Attention?
 
-Self-attention allows each token in a sequence to attend to all other tokens and assign relevance scores.
+Self-attention allows each token in a sequence to compute how important every other token is for understanding its meaning. Instead of relying only on nearby words, it builds contextual relationships across the entire sentence, helping the model resolve ambiguity and capture long-range dependencies.
 
 ### How It Works
 
@@ -580,15 +580,139 @@ print(len(vector))  # e.g., 1536 for text-embedding-ada-002
 | Less control over flow | Full control over flow |
 
 ---
-
 ## 24. Types of Chains in LangChain
 
-- **LLMChain** — basic prompt + LLM
-- **SequentialChain** — multiple chains in sequence
-- **RetrievalQA** — RAG chain
-- **ConversationalRetrievalChain** — RAG with memory
-- **RouterChain** — routes to different chains based on input
+### 1. LLMChain (Prompt + LLM)
 
+A basic chain that takes a prompt template, sends it to an LLM, and returns the response.
+
+**Use Case:** Simple question answering, text generation, summarization.
+
+```python
+from langchain.prompts import PromptTemplate
+from langchain_openai import ChatOpenAI
+from langchain.chains import LLMChain
+
+llm = ChatOpenAI(model="gpt-4o-mini")
+
+prompt = PromptTemplate(
+    input_variables=["topic"],
+    template="Explain {topic} in simple terms."
+)
+
+chain = LLMChain(llm=llm, prompt=prompt)
+
+response = chain.invoke({"topic": "Machine Learning"})
+print(response)
+```
+
+---
+
+### 2. SequentialChain
+
+Runs multiple chains one after another, where the output of one chain becomes the input to the next.
+
+**Use Case:** Multi-step workflows such as Generate → Summarize → Translate.
+
+```python
+from langchain.chains import SequentialChain
+
+# Example:
+# Chain 1 -> Generate a blog
+# Chain 2 -> Summarize the generated blog
+
+result = sequential_chain.invoke({
+    "topic": "Artificial Intelligence"
+})
+```
+
+---
+
+### 3. RetrievalQA
+
+Retrieves relevant documents from a vector database and passes them to the LLM.
+
+**Use Case:** RAG (Retrieval-Augmented Generation).
+
+```python
+from langchain.chains import RetrievalQA
+from langchain_openai import ChatOpenAI
+
+llm = ChatOpenAI(model="gpt-4o-mini")
+
+qa_chain = RetrievalQA.from_chain_type(
+    llm=llm,
+    retriever=vectorstore.as_retriever()
+)
+
+response = qa_chain.invoke({
+    "query": "What is Retrieval-Augmented Generation?"
+})
+
+print(response)
+```
+
+---
+
+### 4. ConversationalRetrievalChain
+
+Similar to RetrievalQA but also remembers previous conversation history.
+
+**Use Case:** Chatbots with memory over retrieved documents.
+
+```python
+from langchain.chains import ConversationalRetrievalChain
+from langchain_openai import ChatOpenAI
+
+llm = ChatOpenAI(model="gpt-4o-mini")
+
+conversation_chain = ConversationalRetrievalChain.from_llm(
+    llm=llm,
+    retriever=vectorstore.as_retriever()
+)
+
+response = conversation_chain.invoke({
+    "question": "Summarize the document.",
+    "chat_history": []
+})
+
+print(response)
+```
+
+---
+
+### 5. RouterChain
+
+Routes the user's request to different chains based on the input.
+
+**Use Case:** Route technical questions to one chain and HR questions to another.
+
+```python
+# Pseudo Example
+
+if question == "coding":
+    coding_chain.invoke(question)
+
+elif question == "finance":
+    finance_chain.invoke(question)
+
+else:
+    general_chain.invoke(question)
+```
+
+**Example**
+
+User: "Write a Python function."
+
+➡️ Routed to **Coding Chain**
+
+User: "Explain inflation."
+
+➡️ Routed to **Finance Chain**
+
+User: "Write an email."
+
+➡️ Routed to **General Assistant Chain**
 ---
 
 ## 25. Nodes and Edges in LangGraph
@@ -608,18 +732,113 @@ graph.add_edge("retrieve", "generate")
 
 ---
 
-## 26. How to Implement HITL in LangGraph
+## 26. How to Implement Human-in-the-Loop (HITL) in LangGraph
 
-Human-in-the-Loop (HITL) pauses the graph at a checkpoint and waits for human approval before continuing.
+Human-in-the-Loop (HITL) allows a LangGraph workflow to **pause execution** at a specific node and wait for **human approval or input** before continuing. This is useful for scenarios such as:
+
+- Approving sensitive actions (payments, emails, deployments)
+- Reviewing AI-generated content
+- Editing responses before sending them to users
+- Compliance and audit workflows
+
+### Step 1: Add a Checkpointer
+
+A checkpointer saves the graph's state so it can be resumed later.
 
 ```python
 from langgraph.checkpoint.memory import MemorySaver
 
 checkpointer = MemorySaver()
-graph = graph.compile(checkpointer=checkpointer, interrupt_before=["sensitive_node"])
 ```
 
-The graph pauses before `sensitive_node` and resumes only after human input.
+---
+
+### Step 2: Compile the Graph with an Interrupt
+
+```python
+graph = graph.compile(
+    checkpointer=checkpointer,
+    interrupt_before=["sensitive_node"]
+)
+```
+
+Here:
+
+- `interrupt_before` pauses the graph **before** executing `sensitive_node`.
+- The graph state is automatically saved by the checkpointer.
+
+---
+
+### Step 3: Start the Graph
+
+```python
+config = {
+    "configurable": {
+        "thread_id": "user-123"
+    }
+}
+
+graph.invoke(
+    {"input": "Transfer $5000"},
+    config=config
+)
+```
+
+The graph pauses before `sensitive_node`.
+
+---
+
+### Step 4: Human Reviews the Request
+
+The application can now display something like:
+
+```
+Transfer $5000 to Account XYZ?
+
+Approve / Reject
+```
+
+The graph remains paused until a human makes a decision.
+
+---
+
+### Step 5: Resume the Graph
+
+Once the human approves, resume execution using the **same `thread_id`**.
+
+```python
+from langgraph.types import Command
+
+graph.invoke(
+    Command(resume=True),
+    config=config
+)
+```
+
+Or pass the human's input while resuming:
+
+```python
+graph.invoke(
+    Command(resume="Approved"),
+    config=config
+)
+```
+
+The graph continues execution from the paused node instead of starting over.
+
+---
+
+### Why is `thread_id` Important?
+
+`thread_id` uniquely identifies the execution session.
+
+When you resume the graph using the same `thread_id`, LangGraph loads the saved state from the checkpointer and continues exactly where it paused.
+
+---
+
+### Interview Answer
+
+> Human-in-the-Loop (HITL) in LangGraph enables pausing a workflow at specific nodes for human review or approval. This is achieved by compiling the graph with a checkpointer and specifying interrupt points using `interrupt_before` or `interrupt_after`. The graph's state is saved, and later resumed using `Command(resume=...)` with the same `thread_id`, allowing execution to continue from the checkpoint instead of restarting.
 
 ---
 
