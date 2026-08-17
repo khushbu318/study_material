@@ -1,7 +1,3 @@
-https://teams.microsoft.com/l/meetup-join/19%3ameeting_NTc0NDU1NzUtMTZiNi00NmU0LWE2ZTMtZGE0OGI3YjljZWEy%40thread.v2/0?context=%7b%22Tid%22%3a%224adae17a-ae8f-4ebe-b9b9-730105aa1002%22%2c%22Oid%22%3a%2226c99625-5473-414f-a47b-c734b0b77993%22%7d
-
-
-
 # AI / ML Interview Questions
 
 Importance: ⭐⭐⭐ = Asked 3+ times | ⭐⭐ = Asked 2 times | ⭐ = Asked once
