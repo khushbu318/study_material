@@ -505,6 +505,8 @@ Tuple is the most memory efficient.
 
 ## 15. Shallow Copy vs Deep Copy
 
+>A shallow copy creates a new outer object, but the nested objects inside it are still references to the original objects. So changes to nested mutable objects can affect both copies. A deep copy recursively creates copies of the nested objects as well, so modifications to the copied nested objects do not affect the original. In Python, shallow copying can be done using copy.copy() and deep copying using copy.deepcopy().
+
 ### Shallow Copy
 
 Copies only the outer object.
@@ -515,6 +517,19 @@ import copy
 b = copy.copy(a)
 ```
 
+```
+Original                  Shallow Copy
+
+┌──────────────┐          ┌──────────────┐
+│ Outer Box    │          │ Outer Box    │
+│              │          │              │
+│ ┌──────────┐ │          │ ┌──────────┐ │
+│ │Inner Box │←┼──────────┼→│Inner Box │ │
+│ └──────────┘ │          │ └──────────┘ │
+└──────────────┘          └──────────────┘
+
+```
+
 ### Deep Copy
 
 Recursively copies nested objects.
@@ -522,7 +537,19 @@ Recursively copies nested objects.
 ```python
 b = copy.deepcopy(a)
 ```
+```
+Original                  Deep Copy
 
+┌──────────────┐          ┌──────────────┐
+│ Outer Box    │          │ Outer Box    │
+│              │          │              │
+│ ┌──────────┐ │          │ ┌──────────┐ │
+│ │Inner Box │ │          │ │Inner Box │ │
+│ └──────────┘ │          │ └──────────┘ │
+└──────────────┘          └──────────────┘
+
+     Different inner boxes
+```
 ---
 
 ## 16. Can List or Tuple be Dictionary Keys?
@@ -600,45 +627,36 @@ Output
 
 ### List
 
-append()
-
-extend()
-
-remove()
-
-sort()
-
-pop()
-
-reverse()
+| Function | Description | Example | Output |
+|---|---|---|---|
+| `append()` | Adds a single element to the end of a list. | `numbers = [1, 2]`<br>`numbers.append(3)` | `[1, 2, 3]` |
+| `extend()` | Adds all elements from another iterable to the end of a list. | `numbers = [1, 2]`<br>`numbers.extend([3, 4])` | `[1, 2, 3, 4]` |
+| `remove()` | Removes the first occurrence of a specified value. | `numbers = [1, 2, 3]`<br>`numbers.remove(2)` | `[1, 3]` |
+| `sort()` | Sorts the list in ascending order by default. | `numbers = [3, 1, 2]`<br>`numbers.sort()` | `[1, 2, 3]` |
+| `pop()` | Removes and returns an element, last element by default. | `numbers = [1, 2, 3]`<br>`numbers.pop()` | `3`<br>List becomes `[1, 2]` |
+| `reverse()` | Reverses the order of elements in the list. | `numbers = [1, 2, 3]`<br>`numbers.reverse()` | `[3, 2, 1]` |
 
 ### Dict
 
-get()
-
-keys()
-
-values()
-
-items()
-
-update()
-
-pop()
+| Function | Description | Example | Output |
+|---|---|---|---|
+| `get()` | Returns the value for a specified key without raising an error if the key is missing. | `student = {"name": "John"}`<br>`student.get("name")` | `"John"` |
+| `keys()` | Returns all the keys in the dictionary. | `student = {"name": "John", "age": 20}`<br>`student.keys()` | `dict_keys(["name", "age"])` |
+| `values()` | Returns all the values in the dictionary. | `student = {"name": "John", "age": 20}`<br>`student.values()` | `dict_values(["John", 20])` |
+| `items()` | Returns key-value pairs as tuples. | `student = {"name": "John", "age": 20}`<br>`student.items()` | `dict_items([("name", "John"), ("age", 20)])` |
+| `update()` | Adds new key-value pairs or updates existing keys. | `student = {"name": "John"}`<br>`student.update({"age": 20})` | `{"name": "John", "age": 20}` |
+| `pop()` | Removes and returns the value associated with a specified key. | `student = {"name": "John", "age": 20}`<br>`student.pop("age")` | `20`<br>Dictionary becomes `{"name": "John"}` |
 
 ### String
 
-split()
-
-join()
-
-replace()
-
-strip()
-
-lower()
-
-upper()
+| Function | Description | Example | Output |
+|---|---|---|---|
+| `split()` | Splits a string into a list using a separator. | `"hello world".split()` | `["hello", "world"]` |
+| `join()` | Joins elements of an iterable into a string using a separator. | `" ".join(["hello", "world"])` | `"hello world"` |
+| `replace()` | Replaces occurrences of one substring with another. | `"hello world".replace("world", "Python")` | `"hello Python"` |
+| `strip()` | Removes whitespace from the beginning and end of a string. | `"  hello  ".strip()` | `"hello"` |
+| `lower()` | Converts all characters in a string to lowercase. | `"HELLO".lower()` | `"hello"` |
+| `upper()` | Converts all characters in a string to uppercase. | `"hello".upper()` | `"HELLO"` |
 
 ---
 
@@ -755,7 +773,7 @@ else:
 
 | Generator | Iterator |
 |------------|----------|
-| Uses yield | Uses __iter__ and __next__ |
+| Uses yield | Uses ```__iter__``` and ```__next__``` |
 | Easier to write | Manual implementation |
 | Memory efficient | Depends |
 
@@ -1231,3 +1249,5 @@ print(result)
 ```
 
 > **Interview Tip:** If the interviewer says "without using any library", clarify whether standard library modules like `urllib` are allowed. If not, explain that checking a live URL requires network communication, which is typically handled by Python's standard networking libraries.
+
+

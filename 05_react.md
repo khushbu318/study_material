@@ -42,7 +42,7 @@ Not a deep focus area but worth knowing the basics.
 
 # React
 
-## 1. What are React Hooks?
+## Q1. What are React Hooks?
 
 React Hooks are built-in functions introduced in React 16.8 that allow functional components to use state and lifecycle features without writing class components.
 
@@ -117,7 +117,7 @@ In AI applications, I have used React Hooks for:
 
 ---
 
-## 2. What are Sessions and Cookies in React?
+## Q2. What are Sessions and Cookies in React?
 
 React itself does not manage sessions or cookies. These are handled by the browser and backend.
 
@@ -179,7 +179,7 @@ In AI applications, authentication is typically implemented using:
 
 ---
 
-## 3. Can We Transfer Session Data from One Session to Another?
+## Q3. Can We Transfer Session Data from One Session to Another?
 
 Directly transferring session data between two independent sessions is **not recommended** because each session has a unique Session ID.
 
@@ -212,7 +212,7 @@ The backend retrieves the user's information using the token instead of copying 
 
 # Angular
 
-## 4. What is the Angular Lifecycle?
+## Q4. What is the Angular Lifecycle?
 
 Angular components go through different lifecycle stages from creation to destruction.
 
@@ -288,7 +288,7 @@ ngOnDestroy
 
 # General Frontend
 
-## 5. Do You Know JavaScript?
+## Q5. Do You Know JavaScript?
 
 Yes.
 

@@ -157,3 +157,296 @@
 - what is redis and use cases how do you used it
 - gen ai vs agentic ai vs llm
 - what are transformers
+
+- what is Reranking 
+- How can we do Reranking
+- Types of cross Encoders
+- disadvantage of multi agent system
+- How can we test the multi agent system
+- In multi agent system where can we keep the evaluator and how many
+- what is hand off in multiagent System
+- How llm know that when and what tool to use 
+- use of docstring in functions 
+- how to communication with the mcp in cloud or remote (sse or stdio)
+- write the python code to check the given int is palindrome or not and you can't convert the given int to str.
+
+- what are the model variables, where to user them
+- Basic ML, How llm works internally
+- What is slm and how it works 
+- How do you identify that the model is llm or slm
+- how to implement caching in Ai Applications / what and how redis cache work (LRU)
+- what is ORC and how it works
+- what is good vs bad prompting
+- one prompt can have (role, goal, instruction, guardrails, examples [optional])
+- how to process pdf / images / tabular data and get it text for any RAG or chatbot creation
+- What is the architecture of transformers
+- Question about the project in resume (A2 Agent)
+
+
+------------ all categories ----------
+- ai/ml doc
+- python
+- sql
+- resume_related (scenario based questions)
+- React
+- backend api
+
+-------------------------- ai/ml doc format ---------------
+the categories are 
+## Generative AI & LLMs
+## RAG (Retrieval Augmented Generation)
+## Vector Databases & Embeddings
+## Agents & Frameworks
+## Cloud & Integrations
+## Prompting
+
+and the questions are written as below format
+# Prompting
+
+## Q28. Types of Prompting
+
+| Type | Description |
+|------|-------------|
+| Zero-shot | No examples — model uses its own knowledge |
+| One-shot | One example provided |
+| Few-shot | Multiple examples provided |
+| Chain-of-thought | Step-by-step reasoning |
+| ReAct | Reason + Act (for agents) |
+| System prompting | Role/persona defined in system message |
+
+---
+
+## Q29. What is Jailbreaking?
+
+Jailbreaking is an attempt to bypass an LLM's safety guardrails using crafted prompts to make it produce restricted content.
+
+Examples: prompt injection, role-play manipulation, encoding tricks.
+
+---
+
+## Q30. Guardrail Techniques
+
+- **Input validation** — filter harmful inputs before sending to LLM
+- **Output validation** — check LLM output before returning to user
+- **Content filters** — AWS Bedrock Guardrails, OpenAI moderation API
+- **Prompt injection detection**
+- **PII detection and redaction**
+- **Hallucination detection** — semantic similarity between source and output
+
+---
+
+# Cloud & Integrations
+
+## Q31. What is Redis and its Use Cases?
+
+Redis is an in-memory key-value store used for caching, sessions, and pub/sub.
+
+### Use Cases in AI Applications
+
+- Caching LLM responses
+- Session storage (chat history)
+- Rate limiting
+- Job queues (Celery + Redis)
+- Pub/Sub for streaming
+
+---
+
+## Q32. Stateful vs Stateless Servers
+
+| Stateless | Stateful |
+|-----------|----------|
+| No session data stored | Session data stored on server |
+| Scales easily | Harder to scale |
+| REST APIs (JWT) | WebSockets, chat sessions |
+
+--- 
+
+-----------------------------------
+# AI/ML
+
+## RAG & Retrieval
+- What is reranking?
+- How can we implement reranking?
+- What are the different types of cross-encoders?
+- How can we process PDFs, images, and tabular data and extract text/data for RAG or chatbot applications?
+- What is OCR and how does it work?
+
+## LLMs & SLMs
+- What are model variables, and where should we use them?
+- What is basic Machine Learning (ML)?
+- How does an LLM work internally?
+- What is an SLM, and how does it work?
+- How do you identify whether a model is an LLM or an SLM?
+- What is the architecture of Transformers?
+- How does an LLM know when and which tool to use?
+
+## Prompt Engineering
+- What is good prompting vs. bad prompting?
+- What are the main components of a prompt?
+- Can a single prompt contain the following components?
+  - Role
+  - Goal
+  - Instructions
+  - Guardrails
+  - Examples (optional)
+- What is the purpose of docstrings in functions, especially when working with LLMs and tools?
+
+## AI Application Caching
+- How can we implement caching in AI applications?
+- What is Redis cache, and how does it work?
+- What is LRU (Least Recently Used) caching?
+- How can Redis be used to implement LRU caching in AI applications?
+
+## Multi-Agent Systems
+- What are the disadvantages of a multi-agent system?
+- How can we test a multi-agent system?
+- In a multi-agent system, where should we place evaluators?
+- How many evaluators should we use in a multi-agent system?
+- What is handoff in a multi-agent system?
+- How does communication work between different agents?
+- How do you evaluate the performance of individual agents and the overall multi-agent system?
+
+## MCP
+- How can we communicate with an MCP server in the cloud or remotely?
+- What are the differences between SSE and stdio communication in MCP?
+- When should we use SSE vs. stdio for MCP?
+
+---
+
+# Python
+
+## Coding Questions
+- Write Python code to check whether a given integer is a palindrome or not.
+- How can you check whether an integer is a palindrome without converting the integer to a string?
+- What is the time and space complexity of the palindrome solution?
+
+## Python Fundamentals
+- What are model variables in Python, and where should they be used?
+- What is the purpose of docstrings in Python functions?
+- How can docstrings be useful when integrating Python functions with LLMs or AI agents?
+
+---
+
+# SQL
+
+- SQL fundamentals
+- SQL joins and their use cases
+- Different types of joins
+- Subqueries and CTEs
+- Window functions
+- Aggregations and grouping
+- Indexing and query optimization
+- Transactions and ACID properties
+- Database normalization and denormalization
+- Primary keys and foreign keys
+- Common SQL scenario-based interview questions
+
+---
+
+# Resume / Project Related
+
+## A2 Agent Project
+
+- Explain the A2 Agent project mentioned in your resume.
+- What problem does the A2 Agent solve?
+- What was your role in the project?
+- What was the architecture of the A2 Agent?
+- Why did you choose the technologies used in the project?
+- How does the agent work internally?
+- How does the agent decide which tool to use?
+- How does the agent handle failures?
+- How did you implement memory/context management?
+- How did you evaluate the agent's performance?
+- What challenges did you face while building the A2 Agent?
+- What was the most difficult technical problem you solved?
+- How did you optimize the system for performance and cost?
+- How did you handle security and guardrails?
+- How did you handle errors and retries?
+- How did you test the agent?
+- What would you improve if you were rebuilding the project today?
+- Explain one real-world scenario where your A2 Agent was useful.
+- What trade-offs did you make while designing the system?
+
+## Scenario-Based Questions
+
+- Your agent is giving incorrect answers. How would you debug the issue?
+- Your RAG system retrieves irrelevant documents. How would you improve retrieval?
+- Your LLM response is too slow. How would you reduce latency?
+- Your AI application is becoming expensive. How would you reduce token and model costs?
+- The agent repeatedly selects the wrong tool. How would you diagnose and fix it?
+- A multi-agent workflow becomes difficult to maintain. How would you redesign it?
+- The context window is getting full during long-running tasks. How would you handle it?
+- Your application receives thousands of requests. How would you scale the AI system?
+- Redis is unavailable in production. How should the application behave?
+- An LLM-generated response is inconsistent between requests. How would you investigate the issue?
+
+---
+
+# React
+
+## React Fundamentals
+- What is React?
+- What is the difference between state and props?
+- What are React Hooks?
+- Explain `useState`.
+- Explain `useEffect`.
+- Explain `useReducer`.
+- Explain `useMemo`.
+- Explain `useCallback`.
+- Explain `useRef`.
+- What is the React component lifecycle?
+- What is the difference between functional and class components?
+- What is Context API?
+- What is Redux?
+- What is Redux Toolkit?
+- When should you use Context API vs. Redux?
+- What causes a React component to re-render?
+- How can you optimize React application performance?
+- What are controlled and uncontrolled components?
+- What are keys in React and why are they important?
+- What is prop drilling and how can you avoid it?
+- What are Higher-Order Components (HOCs)?
+
+## React Scenario-Based Questions
+- A component is re-rendering unnecessarily. How would you debug and optimize it?
+- An API call is being triggered multiple times. What could be the reason?
+- How would you handle loading and error states in a React application?
+- How would you implement authentication in React?
+- How would you manage global application state?
+- How would you optimize a React application with a large amount of data?
+
+---
+
+# Backend API
+
+## FastAPI / Backend Fundamentals
+- What is FastAPI?
+- Why would you choose FastAPI over Flask?
+- How does FastAPI handle request validation?
+- What is Pydantic and how is it used in FastAPI?
+- How do you connect FastAPI with a database?
+- How do you implement authentication and authorization?
+- How would you implement RBAC in FastAPI?
+- How do you handle exceptions in FastAPI?
+- How do you implement middleware in FastAPI?
+- How do you handle dependency injection in FastAPI?
+- How do you structure a production FastAPI project?
+- How do you handle background tasks?
+- How do you implement pagination?
+- How do you handle file uploads?
+- How do you secure FastAPI APIs?
+- How do you implement API versioning?
+- How do you write tests for FastAPI APIs?
+
+## Backend Scenario-Based Questions
+- An API is responding slowly. How would you identify the bottleneck?
+- An API suddenly starts receiving a large number of requests. How would you scale it?
+- How would you implement rate limiting?
+- How would you implement caching for an API?
+- How would you handle database connection pooling?
+- How would you design an API for a large-scale application?
+- How would you handle long-running tasks in an API?
+- How would you design an API that integrates with an LLM?
+- How would you handle LLM timeouts and retries?
+- How would you prevent duplicate API requests?
+- How would you monitor and debug a production API?

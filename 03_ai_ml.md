@@ -57,7 +57,8 @@ Importance: ⭐⭐⭐ = Asked 3+ times | ⭐⭐ = Asked 2 times | ⭐ = Asked on
 
 ---
 
-## Agents & Frameworks
+
+
 
 | Question | Times Asked | Importance |
 |----------|-------------|------------|
@@ -122,7 +123,7 @@ Importance: ⭐⭐⭐ = Asked 3+ times | ⭐⭐ = Asked 2 times | ⭐ = Asked on
 
 # Generative AI & LLMs
 
-## 1. What is Gen AI?
+## Q1. What is Gen AI?
 
 Generative AI is a category of AI that generates new content — text, images, code, audio — based on patterns learned from training data.
 
@@ -138,7 +139,7 @@ I use Gen AI to build:
 
 ---
 
-## 2. What is an LLM?
+## Q2. What is an LLM?
 
 A Large Language Model (LLM) is a deep learning model trained on massive text data to understand and generate human language.
 
@@ -154,7 +155,7 @@ Examples: GPT-4, Claude, Gemini, LLaMA, Mistral, Titan
 
 ---
 
-## 3. Gen AI vs Agentic AI vs LLM
+## Q3. Gen AI vs Agentic AI vs LLM
 
 | Concept | Description |
 |---------|-------------|
@@ -171,7 +172,7 @@ Examples: GPT-4, Claude, Gemini, LLaMA, Mistral, Titan
 
 ---
 
-## 4. What is Temperature?
+## Q4. What is Temperature?
 
 Temperature controls the randomness of LLM output.
 
@@ -185,7 +186,7 @@ Use low temperature for factual answers and higher temperature for creative cont
 
 ---
 
-## 5. What are Transformers?
+## Q5. What are Transformers?
 
 Transformers are a neural network architecture that processes sequences in parallel using self-attention.
 
@@ -208,7 +209,7 @@ Transformers are a neural network architecture that processes sequences in paral
 
 ---
 
-## 6. What is Self-Attention?
+## Q6. What is Self-Attention?
 
 Self-attention allows each token in a sequence to compute how important every other token is for understanding its meaning. Instead of relying only on nearby words, it builds contextual relationships across the entire sentence, helping the model resolve ambiguity and capture long-range dependencies.
 
@@ -222,7 +223,7 @@ It helps the model understand context — e.g., which word a pronoun refers to.
 
 ---
 
-## 7. What is Fine-Tuning?
+## Q7. What is Fine-Tuning?
 
 Fine-tuning is the process of training a pre-trained LLM on a smaller, domain-specific dataset to improve its performance on specific tasks.
 
@@ -249,7 +250,7 @@ Depends on the model's context window. Typically 512 to 4096 tokens per example.
 
 # RAG (Retrieval Augmented Generation)
 
-## 8. What is RAG?
+## Q8. What is RAG?
 
 RAG is a technique that enhances LLM responses by retrieving relevant documents from an external knowledge base before generating an answer.
 
@@ -278,7 +279,7 @@ Response
 
 ---
 
-## 9. What is Recursive Character Text Splitter?
+## Q9. What is Recursive Character Text Splitter?
 
 A chunking strategy from LangChain that splits text using a hierarchy of separators:
 
@@ -300,7 +301,7 @@ splitter = RecursiveCharacterTextSplitter(
 
 ---
 
-## 10. How to Reduce Hallucination in RAG
+## Q10. How to Reduce Hallucination in RAG
 
 - Use relevant, high-quality documents
 - Tune chunk size and overlap
@@ -313,7 +314,7 @@ splitter = RecursiveCharacterTextSplitter(
 
 ---
 
-## 11. What is Hybrid Search?
+## Q11. What is Hybrid Search?
 
 Hybrid search combines:
 
@@ -332,7 +333,7 @@ Score = α × dense_score + (1-α) × sparse_score
 
 ---
 
-## 12. What is Vectorless RAG?
+## Q12. What is Vectorless RAG?
 
 Vectorless RAG retrieves context without a vector database.
 
@@ -347,7 +348,7 @@ Useful when data is tabular, structured, or doesn't benefit from semantic search
 
 ---
 
-## 13. What is CRAG (Corrective RAG) / Advanced RAG?
+## Q13. What is CRAG (Corrective RAG) / Advanced RAG?
 
 CRAG is an enhancement to standard RAG that adds a **self-correction loop** — it evaluates the quality of retrieved documents and corrects the retrieval if the documents are not relevant enough.
 
@@ -390,7 +391,7 @@ I use CRAG in LangGraph pipelines where an evaluator node grades retrieved chunk
 
 ---
 
-## 14. What is Self-RAG?
+## Q14. What is Self-RAG?
 
 Self-RAG is a framework where the LLM itself decides **when to retrieve**, **what to retrieve**, and **how to critique its own output** — all using special reflection tokens.
 
@@ -440,7 +441,7 @@ Self-RAG is useful when you want the LLM to be more selective about retrieval �
 
 ---
 
-## 15. What is the Process to Store Data in a Vector Database?
+## Q15. What is the Process to Store Data in a Vector Database?
 
 ```
 Raw Documents (PDF, Web, DB)
@@ -468,7 +469,7 @@ vectorstore = FAISS.from_documents(docs, embeddings)
 
 ---
 
-## 16. Types of Chunking
+## Q16. Types of Chunking
 
 | Type | Description |
 |------|-------------|
@@ -480,7 +481,7 @@ vectorstore = FAISS.from_documents(docs, embeddings)
 
 ---
 
-## 17. PDF Chatbot Architecture
+## Q17. PDF Chatbot Architecture
 
 ```
 User
@@ -504,7 +505,7 @@ User Query → Embed → Retrieve → LLM → Response
 
 # Vector Databases & Embeddings
 
-## 18. What is a Vector Database?
+## Q18. What is a Vector Database?
 
 A vector database stores high-dimensional embeddings and enables fast similarity search.
 
@@ -517,7 +518,7 @@ A vector database stores high-dimensional embeddings and enables fast similarity
 
 ---
 
-## 19. What is Cosine Similarity?
+## Q19. What is Cosine Similarity?
 
 Measures the angle between two vectors.
 
@@ -533,7 +534,7 @@ cos(θ) = (A · B) / (|A| × |B|)
 
 ---
 
-## 20. Cosine Similarity vs Euclidean Distance
+## Q20. Cosine Similarity vs Euclidean Distance
 
 | Cosine Similarity | Euclidean Distance |
 |-------------------|--------------------|
@@ -544,7 +545,7 @@ cos(θ) = (A · B) / (|A| × |B|)
 
 ---
 
-## 21. What is FAISS?
+## Q21. What is FAISS?
 
 FAISS (Facebook AI Similarity Search) is an open-source library for efficient similarity search over large vector collections.
 
@@ -556,7 +557,7 @@ FAISS (Facebook AI Similarity Search) is an open-source library for efficient si
 
 ---
 
-## 22. Write Code to Create Embeddings
+## Q22. Write Code to Create Embeddings
 
 ```python
 from langchain.embeddings import OpenAIEmbeddings
@@ -570,7 +571,7 @@ print(len(vector))  # e.g., 1536 for text-embedding-ada-002
 
 # Agents & Frameworks
 
-## 23. LangChain vs LangGraph
+## Q23. LangChain vs LangGraph
 
 | LangChain | LangGraph |
 |-----------|-----------|
@@ -580,9 +581,9 @@ print(len(vector))  # e.g., 1536 for text-embedding-ada-002
 | Less control over flow | Full control over flow |
 
 ---
-## 24. Types of Chains in LangChain
+## Q24. Types of Chains in LangChain
 
-### 1. LLMChain (Prompt + LLM)
+### Q1. LLMChain (Prompt + LLM)
 
 A basic chain that takes a prompt template, sends it to an LLM, and returns the response.
 
@@ -715,7 +716,7 @@ User: "Write an email."
 ➡️ Routed to **General Assistant Chain**
 ---
 
-## 25. Nodes and Edges in LangGraph
+## Q25. Nodes and Edges in LangGraph
 
 - **Nodes** — functions that process state (e.g., retrieve, generate, evaluate)
 - **Edges** — connections between nodes (can be conditional)
@@ -732,14 +733,51 @@ graph.add_edge("retrieve", "generate")
 
 ---
 
-## 26. How to Implement Human-in-the-Loop (HITL) in LangGraph
+## Q26. How to Implement Human-in-the-Loop (HITL) in LangGraph
 
-Human-in-the-Loop (HITL) allows a LangGraph workflow to **pause execution** at a specific node and wait for **human approval or input** before continuing. This is useful for scenarios such as:
+LangGraph implements HITL using **interrupts**.
 
-- Approving sensitive actions (payments, emails, deployments)
-- Reviewing AI-generated content
-- Editing responses before sending them to users
-- Compliance and audit workflows
+The graph pauses execution at a specific node, waits for human input, and resumes from the same point after receiving a response.
+
+## Flow
+
+```
+Start
+  ↓
+Agent executes
+  ↓
+interrupt()
+  ↓
+Human reviews / approves / edits
+  ↓
+Command(resume=...)
+  ↓
+Graph continues
+```
+
+---
+
+## Human Input in LangGraph
+
+Human input is **not limited to Yes/No**.
+
+It can be:
+
+- Approval (`Yes`)
+- Rejection (`No`)
+- Free-text feedback
+- Suggestions
+- Corrections
+- Structured JSON/object
+- Completely edited content
+---
+
+## Key Takeaways
+
+- HITL = Human supervision inside an AI workflow.
+- LangGraph enables HITL using `interrupt()` and `Command(resume=...)`.
+- Human responses can be **approval, rejection, edits, feedback, or structured data**.
+- HITL is useful whenever actions are **high-risk, irreversible, expensive, or require human judgment**.
 
 ### Step 1: Add a Checkpointer
 
@@ -764,7 +802,7 @@ graph = graph.compile(
 
 Here:
 
-- `interrupt_before` pauses the graph **before** executing `sensitive_node`.
+- `interrupt()` pauses the graph **before** executing `sensitive_node`.
 - The graph state is automatically saved by the checkpointer.
 
 ---
@@ -842,7 +880,7 @@ When you resume the graph using the same `thread_id`, LangGraph loads the saved 
 
 ---
 
-## 27. What is MCP (Model Context Protocol)? Have You Used It?
+## Q27. What is MCP (Model Context Protocol)? Have You Used It?
 
 MCP is an open protocol developed by Anthropic that standardizes how AI applications (LLMs / agents) connect to external tools, data sources, and services.
 
@@ -933,7 +971,7 @@ MCP decouples your tools from your agent framework — the same MCP server works
 
 # Prompting
 
-## 28. Types of Prompting
+## Q28. Types of Prompting
 
 | Type | Description |
 |------|-------------|
@@ -946,7 +984,7 @@ MCP decouples your tools from your agent framework — the same MCP server works
 
 ---
 
-## 29. What is Jailbreaking?
+## Q29. What is Jailbreaking?
 
 Jailbreaking is an attempt to bypass an LLM's safety guardrails using crafted prompts to make it produce restricted content.
 
@@ -954,7 +992,7 @@ Examples: prompt injection, role-play manipulation, encoding tricks.
 
 ---
 
-## 30. Guardrail Techniques
+## Q30. Guardrail Techniques
 
 - **Input validation** — filter harmful inputs before sending to LLM
 - **Output validation** — check LLM output before returning to user
@@ -967,7 +1005,7 @@ Examples: prompt injection, role-play manipulation, encoding tricks.
 
 # Cloud & Integrations
 
-## 31. What is Redis and its Use Cases?
+## Q31. What is Redis and its Use Cases?
 
 Redis is an in-memory key-value store used for caching, sessions, and pub/sub.
 
@@ -981,7 +1019,7 @@ Redis is an in-memory key-value store used for caching, sessions, and pub/sub.
 
 ---
 
-## 32. Stateful vs Stateless Servers
+## Q32. Stateful vs Stateless Servers
 
 | Stateless | Stateful |
 |-----------|----------|
@@ -993,7 +1031,7 @@ Redis is an in-memory key-value store used for caching, sessions, and pub/sub.
 
 # Pandas / Data Handling
 
-## 33. What is Index in Pandas?
+## Q33. What is Index in Pandas?
 
 The index is the row label of a DataFrame or Series. By default it is 0, 1, 2... but can be set to any column.
 
@@ -1003,7 +1041,7 @@ df.set_index("employee_id", inplace=True)
 
 ---
 
-## 34. DataFrame vs Series
+## Q34. DataFrame vs Series
 
 | Series | DataFrame |
 |--------|-----------|
@@ -1013,7 +1051,7 @@ df.set_index("employee_id", inplace=True)
 
 ---
 
-## 35. loc vs iloc
+## Q35. loc vs iloc
 
 | loc | iloc |
 |-----|------|
@@ -1023,7 +1061,7 @@ df.set_index("employee_id", inplace=True)
 
 ---
 
-## 36. Pandas Basic Operations
+## Q36. Pandas Basic Operations
 
 ```python
 df.head()             # first 5 rows
@@ -1038,7 +1076,7 @@ df.sort_values("salary", ascending=False)
 
 ---
 
-## 37. Load CSV or Excel in Pandas
+## Q37. Load CSV or Excel in Pandas
 
 ```python
 df = pd.read_csv("file.csv")
@@ -1047,7 +1085,7 @@ df = pd.read_excel("file.xlsx")
 
 ---
 
-## 38. Find People Joining After 1 Jan 2023
+## Q38. Find People Joining After 1 Jan 2023
 
 ```python
 df["join_date"] = pd.to_datetime(df["join_date"])
@@ -1056,7 +1094,7 @@ result = df[df["join_date"] > "2023-01-01"]
 
 ---
 
-## 39. Check and Change Datatype of a Column
+## Q39. Check and Change Datatype of a Column
 
 ```python
 df.dtypes                          # check all types

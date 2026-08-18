@@ -1464,5 +1464,228 @@ To visually monitor and inspect subagent activity in real time:
 
 ---
 
-MCP in claude Code
+# MCP in Claude Code
+
+## What is MCP?
+
+**MCP (Model Context Protocol)** is an open standard created by **Anthropic** that acts as a universal connector between **Claude Code** and external:
+
+- Tools
+- Services
+- Data sources
+
+The key idea is to **provide Claude Code with more tools and capabilities**.
+
+## Managing MCPs
+
+Using the `/mcp` command, you can:
+
+- Get a list of currently available MCPs
+- Select an MCP you want to connect to
+
+> **Tip:** After adding a new MCP, exit and resume Claude Code to load the newly added MCP.
+
+## MCP Transport Mechanisms
+
+MCP supports different transport mechanisms, including:
+
+- **stdio** — commonly used for local MCP setups
+- **SSE (Server-Sent Events)** — used for communicating with remote MCP servers
+
+--- 
+
+# Useful MCP Examples for Claude Code
+
+## 1. Database MCP Server
+
+A **Database MCP Server** allows Claude Code to interact with and work with databases through MCP.
+
+## 2. Finding MCP Servers
+
+You can browse available MCP servers at:
+
+[MCP Servers](https://mcpservers.org/all)
+
+---
+
+## 3. Figma MCP
+
+The **Figma MCP** allows Claude Code to work with Figma designs and use them as a reference when building UIs.
+
+### Setup
+
+1. Install the Figma MCP plugin.
+2. Use the `/plugin` command in Claude Code.
+3. Go to the **Installed** tab.
+4. Authenticate yourself.
+5. Once authenticated, you can provide a **Figma design link** and ask Claude Code to create the UI based on the design.
+
+### Example
+
+> Create the UI according to this Figma design link.
+
+---
+
+## 4. GitHub MCP
+
+The **GitHub MCP Server** allows Claude Code to interact with GitHub repositories, issues, pull requests, branches, and other GitHub functionality.
+
+### Installation
+
+GitHub MCP Server documentation:
+
+`github/github-mcp-server/docs/installation-guides/install-claude.md`
+
+### Create a GitHub Personal Access Token
+
+1. Go to **GitHub → Settings → Developer Settings → Personal Access Tokens → Fine-grained tokens**.
+2. Click **Generate New Token**.
+3. Give the token a name, set an expiration date, and configure the required permissions:
+   - `repo` — Read/write access to repositories, PRs, and issues.
+   - `workflow` — Trigger GitHub Actions workflows.
+4. Click **Generate** and **copy the token immediately**.
+
+### Configure GitHub MCP
+
+In the terminal:
+
+```bash
+export PAT=your_pat_token_here
+
+claude mcp add --transport http github https://api.githubcopilot.com/mcp \
+  -H "Authorization: Bearer $PAT"
+````
+
+### Example Prompts
+
+* "Which is my most starred repo?"
+* "How many open issues are there? Give me a summary."
+* "Commit all changes with an appropriate conventional commit message, push to the current feature branch, create a pull request into `main` with a proper title and description based on the spec, merge it using squash merge, switch to `main`, pull the latest changes, and delete the feature branch locally."
+
+---
+
+## 5. Context7 MCP
+
+**Context7** is an MCP server that pulls **live, up-to-date documentation** for libraries and frameworks directly into Claude's context while coding.
+
+This is useful when working with libraries where you need accurate and current API documentation.
+
+Website:
+
+[Context7](https://context7.com)
+
+---
+
+## 6. Jira MCP
+
+**Jira** is a project management tool from **Atlassian**. It is widely used by software development teams to plan, track, and manage work, from bug fixes to complete feature development.
+
+### Example Prompts
+
+* "Read `JIRA-234` and implement the feature."
+* "Find all open bug tickets in the Spendly project and fix the highest-priority one."
+
+---
+
+## 7. Notion MCP
+
+**Notion** is an all-in-one workspace used by teams and individuals to:
+
+* Write documentation
+* Manage knowledge
+* Plan projects
+* Collaborate
+
+### Example Prompts
+
+* "Read the product requirements document for the analytics module in Notion and implement the feature in my Flask app."
+* "Read the API design document in Notion and scaffold all the endpoints in `app.py`."
+
+---
+
+## 8. Slack MCP
+
+**Slack** is a business communication platform used by teams to:
+
+* Send messages
+* Share files
+* Collaborate
+* Communicate through channels, direct messages, and threads
+
+### Example Prompts
+
+* "Push this fix to GitHub, open a PR, and post the PR link in `#code-reviews` with a summary of what was changed."
+* "Check `#incidents` for the latest production error, read the details, find the bug in the codebase, and fix it."
+
+---
+
+## 9. AWS MCP
+
+**AWS (Amazon Web Services)** is a cloud platform offering 200+ services across areas such as:
+
+* Servers
+* Databases
+* AI
+* Networking
+* Storage
+* Monitoring
+
+### Example Prompts
+
+* "Deploy the latest build of Spendly to the EC2 instance and verify that it's running."
+* "Check CloudWatch logs for the Spendly app from the last 2 hours and find what's causing the 500 errors."
+
+---
+
+## 10. Docker MCP
+
+**Docker** is a platform that packages an application and all its dependencies into a container—a lightweight, portable, self-contained unit that runs consistently across different environments.
+
+### Example Prompts
+
+* "Read my Spendly Flask app and generate an optimized Dockerfile for it."
+* "My Docker image is 2 GB. Analyze the Dockerfile and reduce the image size."
+
+---
+
+# Important MCP Commands
+
+## Remove an MCP Server
+
+To remove an MCP server:
+
+```bash
+claude mcp remove <mcp-name>
+```
+
+## View MCP Tools
+
+To check the tools provided by a specific MCP:
+
+1. Run `/mcp`.
+2. Select the MCP.
+3. Choose **View Tools**.
+
+This allows you to see what capabilities that MCP provides to Claude Code.
+
+---
+
+# Important: Don't Attach Too Many MCPs
+
+> **Recommendation:** Don't keep too many MCP servers attached to Claude Code. Keep only the **one or two MCPs that are most important** for your current task.
+
+Each MCP server provides tool descriptions that consume space in Claude's **context window**. As more MCPs are attached, more of the context can be occupied by MCP tool descriptions.
+
+Too many MCPs can therefore:
+
+* Consume valuable context-window space.
+* Leave less context available for your actual code and task.
+* Potentially degrade Claude's performance.
+
+**Best practice:** Attach only the MCPs you actually need for the current task and remove or disable unnecessary ones.
+
+---
+
+Hooks in Claude
+
 
