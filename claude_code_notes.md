@@ -1686,6 +1686,407 @@ Too many MCPs can therefore:
 
 ---
 
-Hooks in Claude
+# Hooks in Claude Code
+
+## Why Do We Need Hooks?
+
+To understand why **Hooks** are needed, we first need to understand **Claude Code**.
+
+---
+
+## What Is Claude Code?
+
+### From the User's Perspective
+
+From a user's perspective, **Claude Code** is:
+
+> A terminal-based coding agent with tools, memory, and the Claude LLM.
+![claude_user_perspective](images_md/claude_code_user_perspective.png)
+
+---
+
+### From the System Design Perspective
+
+From a system-design perspective, **Claude Code is a coding harness responsible for controlling a powerful LLM.**
+
+> **Coding Harness:** A set of straps/equipment used to control and direct the power of something strong.
+
+### Core Idea
+
+> **Raw power becomes useful only when controlled through a structured interface.**
+![claude_user_perspective](images_md/coding_harness_architecture.png)
+
+![claude_user_perspective](images_md/harness_and_llm_coordination.png)
+---
+
+## Limitations of LLMs
+
+An LLM, by itself, has several limitations:
+
+- **Unpredictable** — Its behavior can vary depending on context and input.
+- **Stateless** — It does not inherently maintain state across interactions.
+- **Non-deterministic** — The same request may not always produce exactly the same result.
+- **Disconnected from the real world** — It cannot directly observe or interact with the environment without tools.
+- **Unable to act safely on its own** — It needs constraints, permissions, and control mechanisms to perform real-world actions safely.
+
+---
+
+## What Does the Coding Harness Provide?
+
+The **Claude Code coding harness** provides the infrastructure and control mechanisms required to make an LLM useful and safe in a real development environment.
+
+It is responsible for:
+
+- **Reading the filesystem**
+- **Displaying terminal output**
+- **Managing conversation history**
+- **Tracking context-window usage**
+- **Sending API requests to Anthropic**
+- **Parsing the model's tool calls**
+- **Asking the user for permission before running commands**
+- **Executing commands once approved**
+- **Managing memory**
+- **Providing Slash Commands**
+- **Spawning Subagents**
+- **Providing extensibility through MCP and plugins**
+- And more...
+
+---
+The **coding harness acts as the control layer** between the LLM and the real-world environment.
+
+This is where **Hooks** become important: they provide additional mechanisms to control, customize, and automate what happens during the execution lifecycle of the coding harness.
+
+---
+
+## The Rise of Harness Engineering
+
+As LLMs become more powerful, many engineers and companies are building **coding/agent harnesses** around them.
+
+This has led to the emergence of a new engineering field:
+
+> **Harness Engineering**
+
+The core idea is to build a structured control layer around an LLM so that its raw capabilities can be used effectively, reliably, and safely.
+
+### Examples of Harnesses
+
+Some examples include:
+
+- **Claude Code (CC)**
+- **OpenClaw** — Personal agent harness
+- **Hernes** — Self-learning harness
+- **Pi** — Lightweight harness
+
+![Harness and LLM Coordination](images_md/harness_and_llm_coordination.png)
+
+---
+
+## Why Do We Need Hooks?
+
+As these harnesses become more capable, they can perform increasingly powerful actions on behalf of the user.
+
+However, we don't want the harness or the underlying LLM to perform **risky or unwanted commands** without appropriate control.
+
+This is where **Hooks** come into the picture.
+
+Hooks provide a mechanism to:
+
+- Control what the harness does
+- Intercept actions before or after they happen
+- Add custom checks and validations
+- Prevent risky or unwanted commands
+- Automate actions based on specific events
+- Add additional safety and governance to the harness
+
+> **Hooks act as control points within the harness, helping ensure that powerful LLM-driven actions are executed safely and according to predefined rules.**
+
+## Understanding Hooks in Claude Code
+
+To understand **Hooks in Claude Code**, we first need to understand two fundamental concepts:
+
+1. **Agent Loops**
+2. **Session Lifecycle**
+
+These concepts help us understand **when and where Hooks can be triggered** within Claude Code.
+
+---
+
+## Agent Loops
+
+An **Agent Loop** describes the continuous cycle through which Claude reasons, takes actions, observes the results, and continues working toward the user's goal.
+
+![Agent Loop](images_md/Ageant_Loop.png)
+
+The agent repeatedly goes through this loop until it determines that the task is complete or requires further user interaction.
+
+Understanding this loop is important because **Hooks can be attached to specific points within this execution process**.
+
+---
+
+## Session Lifecycle
+
+The **Session Lifecycle** represents the complete lifespan of a single Claude Code session.
+
+> A session starts from the moment you launch Claude Code and continues until you close or terminate the session.
+
+Throughout this lifecycle, Claude Code goes through various stages and events where different Hooks can be triggered.
+
+### Official Documentation
+
+https://code.claude.com/docs/en/hooks
+
+![Session Lifecycle](images_md/session_lifecycle.png)
+
+---
+
+## Why Are These Important for Hooks?
+
+Understanding the **Agent Loop** and **Session Lifecycle** helps us answer an important question:
+
+> **At what point can we intervene in Claude Code's execution?**
+
+Hooks provide these intervention points, allowing us to observe, validate, modify, or control what happens during the agent's execution and throughout the session lifecycle.
+---
 
 
+# Hooks
+
+## What Are Hooks?
+
+**Hooks** are custom scripts written by the programmer that the coding harness automatically executes at specific events during a session's lifecycle.
+
+![Claude Hooks](images_md/claude_hooks.png)
+
+The key idea is:
+
+> **Hooks allow programmers to intervene at specific points in the harness execution lifecycle.**
+
+---
+
+# Use Cases of Hooks
+
+Hooks can be used for a variety of purposes, including:
+
+## 1. Auto-formatting & Linting
+
+### Auto-formatting
+
+Auto-formatting automatically formats source code according to predefined style rules.
+
+For Python, a commonly used formatter is **Black**.
+
+- Black: `github.com/psf/black`
+
+### Linting
+
+Linting is about catching **actual problems, bugs, bad practices, and suspicious patterns** without running the code.
+
+A linter analyzes the source code and flags things that are technically valid Python but are likely to be mistakes.
+
+Examples:
+
+- Unused imports
+- Undefined variables or typos
+- Unreachable code
+- Bare `except` clauses
+
+---
+
+## 2. Blocking Dangerous Shell Commands
+
+Hooks can inspect commands before they are executed and prevent potentially dangerous commands from running.
+
+For example:
+
+- Preventing accidental deletion of important files
+- Blocking destructive shell commands
+- Preventing commands that could modify production resources
+
+---
+
+## 3. Protecting Sensitive Files
+
+Hooks can prevent Claude from modifying or deleting sensitive files such as:
+
+- `.env`
+- Database files
+- Migration files
+- Configuration files
+- Production credentials
+
+---
+
+## 4. Notifications
+
+Hooks can trigger notifications when specific events occur during a Claude Code session.
+
+For example:
+
+- Notify when a long-running task completes
+- Notify when Claude needs attention
+- Notify when a tool execution fails
+
+---
+
+## 5. Telemetry
+
+Hooks can be used for **observability and telemetry**.
+
+For example, they can help track what is happening during every event in the session lifecycle:
+
+- Which tools are being called
+- Which commands are being executed
+- How frequently tools are used
+- Where failures occur
+- How long operations take
+
+---
+
+## 6. Generating Summaries
+
+Hooks can also be used to automatically generate summaries of:
+
+- Session activity
+- Tool usage
+- Changes made during a session
+- Important events
+- Completed tasks
+
+---
+
+# How Do Hooks Work?
+
+```text
+.claude/settings.json
+```
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .claude/hooks/block-dangerous.py"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+A Hook configuration primarily consists of three important pieces:
+
+### 1. Event
+
+The **event** determines *when* the Hook should be triggered.
+
+In the example above:
+
+```text
+"PreToolUse"
+```
+
+A Hook configuration primarily consists of three important pieces:
+
+### 2. Matcher
+
+The **matcher** determines **which** tool or event the Hook applies to.
+
+In the example above:
+
+```text
+"matcher": "Bash",
+```
+
+### 3. Action
+
+The **action** determines **what should be executed** when the Hook is triggered.
+
+```text
+"command": "python3 .claude/hooks/block-dangerous.py"
+```
+
+## Example: Blocking Dangerous Commands
+```python
+# step 1: Read the JSON that the harness sends via stdin
+data = json.load(sys.stdin)
+
+# step 2: Extract the bash command the model wants to run
+command = data.get("tool_input", {}).get("command","")
+
+# step 3: Define what we want to protect
+protected_files = ['spendly.db', '.env', 'migrations/']
+
+# step 4: Define what counts as dangerous
+dangerous_commands = ["rm","rm -", "unlink ", "> ", "truncate "]
+
+# step 5: check if the command is dangerous AND targets protected files
+
+for dangerous in dangerous_commands:
+  if dangerous in command:
+    for protected in protected_files:
+      if protected in command:
+        # Block it: exit 2 + error message on stderr
+        print(
+          f"Blocked: cannot run '{command}' - "
+          f"'{protected}' is a protected file",
+          file = sys.stderr
+        )
+        sys.exit(2)
+# step 6: If we get here, the command is fine - exit 0
+sys.exit(0)
+```
+---
+## What Does This Script Do?
+
+```markdown
+Claude wants to execute a Bash command
+              │
+              ▼
+       PreToolUse Hook
+              │
+              ▼
+      Read command from JSON
+              │
+              ▼
+    Is the command dangerous?
+          │           │
+         Yes          No
+          │           │
+          ▼           ▼
+  Does it target a      Allow
+  protected file?      command
+      │      │
+     Yes     No
+      │       │
+      ▼       ▼
+    Block    Allow
+    command  command
+```
+
+
+> The important point is that the Hook does not replace the Bash tool. Instead, it acts as a control point before the Bash tool is executed.
+
+---
+
+## What Does the Harness Send to the Hook?
+
+Because this is a **PreToolUse** Hook, the coding harness triggers the Hook before calling the tool.
+The harness sends information about the upcoming tool execution to the Hook through standard input (**stdin**) as JSON. 
+
+```json
+{
+  "session_id": "abc-234-567-876",
+  "hook_event_name": "PreToolUse",
+  "cwd": "/home/user/spendly",
+  "transcript_path": "/home/user/.claude/projects/spendly/transcript.jsonl",
+  "tool_name": "Bash",
+  "tool_input": {
+    "command": "rm spendly.db"
+  }
+}
+```
