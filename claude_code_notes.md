@@ -1135,7 +1135,19 @@ claude -r
 ## Detailed Workflow
 
 ```text
-[ 1. Identify Need ] ──> [ 2. Create SKILL.md ] ──> [ 3. Add Resources ] ──> [ 4. Test ] ──> [ 5. Refine ]
+[ 1. Identify Need ] 
+        |
+        V
+[ 2. Create SKILL.md ] 
+        |
+        V
+[ 3. Add Resources ] 
+        |
+        V
+[ 4. Test ] 
+        |
+        V
+[ 5. Refine ]
 ```
 
 # Claude Skills & Slash Commands Integration
@@ -1777,8 +1789,6 @@ Some examples include:
 - **Hernes** — Self-learning harness
 - **Pi** — Lightweight harness
 
-![Harness and LLM Coordination](images_md/harness_and_llm_coordination.png)
-
 ---
 
 ## Why Do We Need Hooks?
@@ -1786,6 +1796,9 @@ Some examples include:
 As these harnesses become more capable, they can perform increasingly powerful actions on behalf of the user.
 
 However, we don't want the harness or the underlying LLM to perform **risky or unwanted commands** without appropriate control.
+
+![Harness and LLM Coordination](images_md/harness_and_llm_coordination.png)
+
 
 This is where **Hooks** come into the picture.
 
@@ -2090,3 +2103,286 @@ The harness sends information about the upcoming tool execution to the Hook thro
   }
 }
 ```
+
+---
+
+# Plugins in Claude Code
+
+Let's understand **plugins in Claude Code** with the help of a story.
+
+## Character
+
+### Rahul
+
+Rahul is a **Senior Data Scientist** at a fintech company.
+
+- His team builds **credit risk models**.
+- He is an **amazing Claude Code user**.
+- To make his tasks easier, he has created and uses:
+  - **Skills**
+  - **Slash commands**
+  - **Hooks**
+  - **Agents**
+  - **MCPs**
+
+---
+
+# Rahul's Skills
+
+Rahul has created several specialized skills for his credit-risk modeling workflow.
+
+## 1. EDA Skill
+```
+- Always start by checking the shape of the dataset, the dtypes, and the percentage of missing value per column not just df.info(), but a proper missing value heatmap using seaborn
+
+- For numerical features, generate distribution plots and check for skewness. if skewness is about 1.5 or below -1.5, flag it and suggest a log transform.
+
+- for categorical features, show value counts, check cardinality, and flag any category with less than 5% representation - because in credit risk, rare categories cause problems in stratified splits.
+
+- Always check for target leakage. If any feature has a correlation above 0.95 with the target variable, highlight it in red and warn the user before they go further.
+
+- At the end, generate a summary table - column name, dtype, missing percentage, unique values, skewness, and a recommendation column that says "keep" , "transform", or "investigate".
+```
+
+## 2. Feature Engineering Skill
+
+```
+- For datetime features, extract recency features - days since last payments, days since account opening, months of cred history. These are more predictive than raw dates.
+
+- Never one-hot encode high-cardinality features. Use target encoding with 5-fold cross-validation to prevent leakeage. The skill even specified which library to use and the exact parameters.
+
+- After engineering all features, run a VIF check. If any feature has a VIF above 10, flag it for mutlicollinearity and suggest which one to drop based on low correlation with the target.
+
+```
+# Rahul's Slash Commands
+
+Rahul has created several specialized Slash Commands for his credit-risk modeling workflow.
+
+```
+- /model-eval command
+* It generates the confusion matrix - not the default scikit-learn text output, but a styled seaborn heatmap with actual counts and percentages, using the team's colour scheme.
+
+* It produces the classification report wiht precision, recall, and F1 for each class - but it also calculates the Gini coefficient and KS statistic, which are the standard metrics in credit risk. 
+
+* It plots the ROC curve and the Precision-Recall curve side by side.
+
+* It generates a feature importance plot - using SHAP values, not just the model's build-in feature importances - showing the top 20 features wiht their mean absolute SHAP values.
+
+* Finally, it produces a one-page summary - a markdown table with all key metrics, the data, the model version, the dataset used, and a "recommendation" field that says either "Ready for review", "Needs improvement", "Do not deploy" based on threshold rules Rahul has defined.
+```
+
+# Rahul's Hook
+
+Rahul has created several specialized Hook for his credit-risk modeling workflow.
+
+```
+* using df.dropna() without specifying which columns - because in a 50-column credit dataset, blindly dropping all rows with any missing value can wipe out 60% of your data 
+
+* Fittin a scaler or encoder on the full dataset instead of fitting on train and transformin test separately - a classic data leakage mistake that inflates validation metrics.
+
+* Hardcoding file paths like /home/rahul/data/loans.csv instead of using environment variable or config files - because this breaks the moment else runs the code.
+
+* Using accuracy as the evaluation metric for an imbalanced classification problem - in credit risk, the default rate is often 5 - 10%, so a model that predicts "no default" for everyone gets 90% accuracy but is completely useless 
+```
+
+# Rahul's MCP
+
+Rahul has several specialized MCP for his credit-risk modeling workflow.
+
+```
+Experiment Tracking MCP Server
+```
+--- 
+
+# Why Do We Need Plugins?
+
+## The Situation
+
+Rahul has years of experience as a data scientist and an advanced Claude Code user.
+
+He knows how to create and configure:
+
+- Skills
+- Hooks
+- Slash commands
+- Sub-agents
+- MCPs
+- Other Claude Code resources
+
+But imagine a new or junior data scientist joining his team.
+
+They may **not have the same expertise as Rahul**.
+
+So they cannot easily create all of these resources themselves.
+
+---
+
+## Rahul Wants to Share His Resources
+
+Rahul can help junior data scientists by sharing his existing resources with them.
+
+For example, he could give them:
+
+- The EDA Skill
+- The Feature Engineering Skill
+- Some Hooks
+- Some Slash Commands
+- Sub-agents
+- MCP configuration
+
+However, this creates a problem.
+
+### Problem 1: Manual Distribution
+
+If Rahul has many resources, he would have to distribute them one by one.
+
+## Problem 2: Resources Can Be Misplaced
+
+When Rahul has multiple resources such as **skills, hooks, slash commands, sub-agents, and MCPs**, manually distributing them to junior data scientists can lead to mistakes.
+
+A junior developer might accidentally:
+
+- Put a **skill** in the wrong directory.
+- Put a **hook** in the wrong location.
+- Misconfigure an **MCP**.
+- Place a **slash command** incorrectly.
+- Forget to copy one of the required resources.
+- Break the expected directory structure.
+
+As the number of resources increases, managing and organizing them manually becomes more difficult.
+
+---
+## Solution
+
+`Plugin = A structured package of Claude Code resources that can be distributed and reused together.`
+
+Pluggin is the folder containing all of this resources in structure way
+
+```
+rahul-ds-toolkit/
+├── .claude-plugin/
+│   └── plugin.json
+├── skills/
+│   ├── eda-credit-risk.md
+│   ├── feature-engineering.md
+│   └── model-documentation.md
+├── hooks/
+│   ├── linter-check.js
+│   └── production-guard.js
+├── commands/
+│   └── model-eval/
+│       └── command.md
+└── .mcp.json
+```
+
+---
+
+### It is compulsory to make the .claude-plugin/ plugin.json to make any folder plugin where 
+
+> plugin.json
+
+```json
+{
+  "name": "rahul-ds-toolkit",
+  "version": "1.0.0",
+  "description": "Credit risk data science toolkit - EDA, feature engineering, model evaluation, and experiment tracking for the risk modeling team",
+  "author": {
+    "name": "Rahul Sharma",
+    "url": "https://github.cum/rahul-sharma"
+  },
+  "repository":
+  "https://github.com/rahul-sharma/rahul-ds-toolkit",
+  "license": "MIT"
+}
+```
+
+act as the manifest file and manifest file has info related to your plugin
+
+> Note if folder didn't have plugin.json then it is not considered as plugin
+
+---
+# How to Get Other Plugins into Claude Code?
+
+You can get other plugins for your Claude Code setup through **marketplaces**.
+
+## What Is a Marketplace?
+
+A **marketplace** is essentially a **GitHub repository** that contains a `marketplace.json` file.
+
+The `marketplace.json` file lists the plugins that are available in that marketplace.
+
+```text
+Marketplace
+│
+├── marketplace.json
+│
+└── Plugins
+    ├── Plugin 1
+    ├── Plugin 2
+    ├── Plugin 3
+    └── ...
+```
+
+- Official marketplace `(claude-plugins-official)` - comes pre-added with Claude Code. Curated by Anthropic. Includes first-party plugins and vetted partner once like vercel, Railway, GitHub, Supabase.
+
+link : https://github.com/anthropics/claude-plugins-official/tree/main
+
+- Third-party marketplaces - any GitHub repo with a `marketplace.json`. Rahul could make one for his team. A company could make an internal one for their org. Anyone can create one.
+
+```
+claude-plugins-official/
+├── .claude-plugin/
+│   └── marketplace.json
+```
+
+Below is the example of marketplace.json file
+
+```json
+{
+  "name": "rahul-ds-marketplace",
+  "owner": {
+    "name": "Rahul Sharma"
+  }
+  "plugins":[
+    {
+      "name": "rahul-ds-toolkit",
+      "source": "./plugins/rahul-ds-toolkit",
+      "description": "Credit risk data science toolkit"
+    },
+    {
+      "name": "nlp-started",
+      "source": "./plugins/nlp-starter",
+      "description": "NLP preprocessing and evaluation"
+    },
+  ]
+}
+```
+
+---
+# How to Use Plugins in Claude Code?
+
+After starting **Claude Code (CC)**, you can manage plugins using the:
+
+```text
+/plugin
+```
+
+once you hit enter you get menu tabs as 
+1. Discove
+2. Marketplaces
+3. Errors
+
+---
+
+## Adding a New Marketplace
+
+The **official marketplace** is already available in Claude Code by default.
+
+If you want to add a **third-party marketplace**, select:
+
+```text
++ Add Marketplace
+```
+
+Enter third-party GitHub repository address
+
