@@ -6,7 +6,8 @@ from pathlib import Path
 
 def renumber_questions(markdown: str) -> str:
     """
-    Renumber Markdown question headings sequentially.
+    Renumber Markdown question headings sequentially and ensure each question
+    is preceded by a Markdown horizontal rule.
 
     Supported formats:
 
@@ -37,6 +38,21 @@ def renumber_questions(markdown: str) -> str:
 
         if match:
             question_number += 1
+
+            # Add a separator after the previous answer when one is missing.
+            previous_content_index = len(updated_lines) - 1
+            while (
+                previous_content_index >= 0
+                and not updated_lines[previous_content_index].strip()
+            ):
+                previous_content_index -= 1
+
+            if (
+                previous_content_index >= 0
+                and updated_lines[previous_content_index].strip() != "---"
+            ):
+                del updated_lines[previous_content_index + 1 :]
+                updated_lines.extend(["", "---", ""])
 
             heading = match.group(1)
             question_text = match.group(2).strip()
@@ -92,6 +108,6 @@ if __name__ == "__main__":
     # CHANGE THIS PATH TO YOUR MARKDOWN FILE
     # ========================================================
 
-    file_path = r"C:\Users\Khushbu.Kushvaha\Desktop\Kk\Notes_for_interviews\05_react.md"
+    file_path = r"C:\Users\Khushbu.Kushvaha\Desktop\Kk\Notes_for_interviews\06_backend_api.md"
 
     process_markdown_file(file_path)

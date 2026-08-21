@@ -1250,4 +1250,55 @@ print(result)
 
 > **Interview Tip:** If the interviewer says "without using any library", clarify whether standard library modules like `urllib` are allowed. If not, explain that checking a live URL requires network communication, which is typically handled by Python's standard networking libraries.
 
+---
 
+## 48. Check Whether an Integer Is a Palindrome Without Converting to a String
+
+### Pythonic Solution
+
+```python
+def is_palindrome(num):
+    if num < 0:
+        return False
+
+    original = num
+    reversed_num = 0
+
+    while num > 0:
+        digit = num % 10
+        reversed_num = reversed_num * 10 + digit
+        num //= 10
+
+    return original == reversed_num
+
+
+print(is_palindrome(121))
+print(is_palindrome(123))
+print(is_palindrome(1221))
+```
+### Output
+
+```
+True
+False
+True
+```
+
+### how it works
+
+We reverse the integer mathematically using `%` and `//` without converting it to a string.
+
+For `121`:
+```
+121 % 10 = 1
+12 % 10  = 2
+1 % 10   = 1
+
+Reversed number = 121
+```
+
+Finally, we compare the reversed number with the original number.
+
+> **Interview Tip**: Mention that the solution uses O(log n) time and O(1) extra space, because we only use a few integer variables and do not create a string or additional data structure.
+
+---

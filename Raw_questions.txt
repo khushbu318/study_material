@@ -182,6 +182,8 @@
 - What is the architecture of transformers
 - Question about the project in resume (A2 Agent)
 
+- cross-encoders vs Bi-encoders
+
 
 ------------ all categories ----------
 - ai/ml doc
@@ -263,84 +265,13 @@ Redis is an in-memory key-value store used for caching, sessions, and pub/sub.
 
 -----------------------------------
 # AI/ML
-
-## RAG & Retrieval
-- What is reranking?
-- How can we implement reranking?
-- What are the different types of cross-encoders?
-- How can we process PDFs, images, and tabular data and extract text/data for RAG or chatbot applications?
-- What is OCR and how does it work?
-
-## LLMs & SLMs
-- What are model variables, and where should we use them?
-- What is basic Machine Learning (ML)?
-- How does an LLM work internally?
-- What is an SLM, and how does it work?
-- How do you identify whether a model is an LLM or an SLM?
-- What is the architecture of Transformers?
-- How does an LLM know when and which tool to use?
-
-## Prompt Engineering
-- What is good prompting vs. bad prompting?
-- What are the main components of a prompt?
-- Can a single prompt contain the following components?
-  - Role
-  - Goal
-  - Instructions
-  - Guardrails
-  - Examples (optional)
-- What is the purpose of docstrings in functions, especially when working with LLMs and tools?
-
-## AI Application Caching
-- How can we implement caching in AI applications?
-- What is Redis cache, and how does it work?
-- What is LRU (Least Recently Used) caching?
-- How can Redis be used to implement LRU caching in AI applications?
-
-## Multi-Agent Systems
-- What are the disadvantages of a multi-agent system?
-- How can we test a multi-agent system?
-- In a multi-agent system, where should we place evaluators?
-- How many evaluators should we use in a multi-agent system?
-- What is handoff in a multi-agent system?
-- How does communication work between different agents?
-- How do you evaluate the performance of individual agents and the overall multi-agent system?
-
-## MCP
-- How can we communicate with an MCP server in the cloud or remotely?
-- What are the differences between SSE and stdio communication in MCP?
-- When should we use SSE vs. stdio for MCP?
-
 ---
 
 # Python
 
-## Coding Questions
-- Write Python code to check whether a given integer is a palindrome or not.
-- How can you check whether an integer is a palindrome without converting the integer to a string?
-- What is the time and space complexity of the palindrome solution?
-
-## Python Fundamentals
-- What are model variables in Python, and where should they be used?
-- What is the purpose of docstrings in Python functions?
-- How can docstrings be useful when integrating Python functions with LLMs or AI agents?
-
 ---
 
 # SQL
-
-- SQL fundamentals
-- SQL joins and their use cases
-- Different types of joins
-- Subqueries and CTEs
-- Window functions
-- Aggregations and grouping
-- Indexing and query optimization
-- Transactions and ACID properties
-- Database normalization and denormalization
-- Primary keys and foreign keys
-- Common SQL scenario-based interview questions
-
 ---
 
 # Resume / Project Related
@@ -419,25 +350,6 @@ Redis is an in-memory key-value store used for caching, sessions, and pub/sub.
 
 # Backend API
 
-## FastAPI / Backend Fundamentals
-- What is FastAPI?
-- Why would you choose FastAPI over Flask?
-- How does FastAPI handle request validation?
-- What is Pydantic and how is it used in FastAPI?
-- How do you connect FastAPI with a database?
-- How do you implement authentication and authorization?
-- How would you implement RBAC in FastAPI?
-- How do you handle exceptions in FastAPI?
-- How do you implement middleware in FastAPI?
-- How do you handle dependency injection in FastAPI?
-- How do you structure a production FastAPI project?
-- How do you handle background tasks?
-- How do you implement pagination?
-- How do you handle file uploads?
-- How do you secure FastAPI APIs?
-- How do you implement API versioning?
-- How do you write tests for FastAPI APIs?
-
 ## Backend Scenario-Based Questions
 - An API is responding slowly. How would you identify the bottleneck?
 - An API suddenly starts receiving a large number of requests. How would you scale it?
@@ -450,3 +362,5 @@ Redis is an in-memory key-value store used for caching, sessions, and pub/sub.
 - How would you handle LLM timeouts and retries?
 - How would you prevent duplicate API requests?
 - How would you monitor and debug a production API?
+
+
