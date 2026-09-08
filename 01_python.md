@@ -1302,3 +1302,31 @@ Finally, we compare the reversed number with the original number.
 > **Interview Tip**: Mention that the solution uses O(log n) time and O(1) extra space, because we only use a few integer variables and do not create a string or additional data structure.
 
 ---
+
+# Write a function that returns a list of valid, 
+# unique emails all lowercased, with duplicates removed.
+
+```python
+customers = [
+    {"name": "Alice", "email": "Alice@Example.com"},
+    {"name": "Bob"},
+    {"name": "Charlie", "email": "charlie@example.com"},
+    {"name": "Dave", "email": "alice@example.com"},
+    {"name": "Eve", "email": ""},
+]
+
+def get_valid_email(data: list) -> list:
+    only_email  = set()
+    for d in data:
+        email = d.get("email")
+        if isinstance(email, str) and email :
+            email = email.lower()
+            if email not in only_email:
+                only_email.add(email)    
+    return list(only_email)
+        
+
+print(get_valid_email(customers))
+
+```
+---
