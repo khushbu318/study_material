@@ -1330,3 +1330,31 @@ print(get_valid_email(customers))
 
 ```
 ---
+
+```python
+# Given:
+documents = [
+    {"text": "Azure Functions is serverless.", "score": 0.91},
+    {"text": "Docker packages applications.", "score": 0.82},
+    {"text": "Azure Functions can scale automatically.", "score": 0.88},
+    {"text": "Python is used for AI applications.", "score": 0.55}
+]
+ 
+# Write a function that: Keeps documents with score >= 0.8, 
+# Sorts them by score descending, Returns the top 2 texts.
+
+def get_doc(documents: list):
+    get_doc_1 = []
+    sorted_doc = []
+
+    for doc in documents:
+        # print(doc) # dict
+        score = doc.get('score')
+        # print(score)
+        if score >= 0.8:
+            get_doc_1.append(doc)
+
+    return get_doc_1
+
+print(get_doc(documents))
+```
