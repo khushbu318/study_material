@@ -1358,3 +1358,32 @@ def get_doc(documents: list):
 
 print(get_doc(documents))
 ```
+```python
+# Merge two dictionaries together. If a key exists in both, 
+# the value from the second dictionary should overwrite the first.
+ 
+dict1 = {'a': 1, 'b': 2}
+dict2 = {'b': 3, 'c': 4}
+ 
+# Output: {'a': 1, 'b': 3, 'c': 4}
+
+def merge_d(d1, d2) -> dict:
+    final_dict = d1
+    # seen = set()
+    for d in d2:
+        # print(d)
+        # keys = d1.keys()
+        if d2.get(d) in final_dict.keys():
+            final_dict[d] = d2.get(d)
+        else:
+            final_dict[d] = d2.get(d)
+
+    return final_dict
+        
+
+
+print(merge_d(dict1, dict2))
+# final = zip(map(dict1, dict2))
+
+# print(final)
+```
