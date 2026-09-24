@@ -1387,3 +1387,104 @@ print(merge_d(dict1, dict2))
 
 # print(final)
 ```
+```python
+# If I enter an integer, print all the prime numbers
+# before that integer in the number series.
+#
+# Example:
+# Input  : 15
+# Output : 2, 3, 5, 7, 11, 13
+
+
+def get_prime_no(no: int):
+
+    # Outer loop:
+    # Check every number from 2 up to (but NOT including) 'no'.
+    #
+    # range(2, no) means:
+    # 2, 3, 4, 5, ... no-1
+    for n in range(2, no):
+
+        # Assume the current number is prime.
+        is_prime = True
+
+        # Inner loop:
+        # Check if 'n' is divisible by any number
+        # between 2 and n-1.
+        for ele in range(2, n):
+
+            # If n is completely divisible by ele,
+            # then n is NOT a prime number.
+            if n % ele == 0:
+                is_prime = False
+
+                # No need to check further divisors.
+                break
+
+        # If no divisor was found,
+        # the number is prime.
+        if is_prime:
+            print(n)
+
+
+get_prime_no(15)
+
+
+# ==========================================================
+# IMPORTANT: RETURN vs PRINT
+# ==========================================================
+
+# PRINT:
+#
+# print(n) displays the value but allows the function
+# to continue executing.
+#
+# Example:
+#
+# if is_prime:
+#     print(n)
+#
+# Output:
+# 2
+# 3
+# 5
+# 7
+# 11
+# 13
+#
+# The loop continues after printing each prime number.
+
+
+# RETURN:
+#
+# return n gives the value back from the function
+# AND immediately stops/exits the function.
+#
+# If we wrote:
+#
+# if is_prime:
+#     return n
+#
+# Then when n = 2:
+#
+# 1. n = 2
+# 2. 2 is prime
+# 3. return 2
+# 4. Function STOPS here
+#
+# Therefore, we would get only:
+#
+# 2
+#
+# The function would NOT continue to check:
+# 3, 4, 5, 6, ... 14
+
+
+# ==========================================================
+# EASY WAY TO REMEMBER
+# ==========================================================
+
+# print()  -> "Show this value, then continue."
+#
+# return   -> "Give me this value, then STOP the function."
+```
